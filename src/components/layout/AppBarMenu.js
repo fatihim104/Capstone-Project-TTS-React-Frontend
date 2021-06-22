@@ -9,11 +9,10 @@ import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    
+    flexGrow: 1,    
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
@@ -29,7 +28,7 @@ const AppBarMenü = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar >
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton}  aria-label="menu">
             <Avatar alt="-name-" src="" />
           </IconButton>
           <Typography variant="h6" className={classes.title}>

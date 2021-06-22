@@ -76,39 +76,39 @@ const SideMenü = () => {
 
                 <Divider/>
 
-            <Link to="/registerPerson">
-                <List component="nav" aria-label="Register New Person">
+            <Link to="/person-list">
+                <List component="nav" aria-label="Person List">
                     <ListItem button selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event,3)}>
                         <ListItemIcon>
                             <PersonAddTwoToneIcon color="primary" fontSize="large" />
                         </ListItemIcon>
-                        <ListItemText primary="Register New Person" />
+                        <ListItemText primary="Person List" />
                     </ListItem>   
                 </List>
             </Link>
 
                 <Divider/>
 
-            <Link to="/addNewTask"> 
-                <List component="nav" aria-label="Add New Task">
+            <Link to="/tasks"> 
+                <List component="nav" aria-label="Tasks">
                     <ListItem button selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event,4)}>
                         <ListItemIcon>
                             <FitnessCenterTwoToneIcon color="secondary" fontSize="large" />
                         </ListItemIcon>
-                        <ListItemText primary="Add New Task" />
+                        <ListItemText primary="Tasks" />
                     </ListItem>   
                 </List>
             </Link>
 
                 <Divider/>
             
-            <Link to="/addNewAsistant">
-                <List component="nav" aria-label="Add New Asistant">
+            <Link to="/asistant-list">
+                <List component="nav" aria-label="Asistant List">
                     <ListItem button selected={selectedIndex === 5} onClick={(event) => handleListItemClick(event,5)}>
                         <ListItemIcon>
                             <GroupOutlinedIcon color="primary" fontSize="large" />
                         </ListItemIcon>
-                        <ListItemText primary="Add New Asistant" />
+                        <ListItemText primary="Asistant List" />
                     </ListItem>   
                 </List>
             </Link>   

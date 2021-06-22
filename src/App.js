@@ -11,15 +11,15 @@ import SideMenü from './components/layout/SideMenu';
 import ActuelCleaningTable from './components/actuel-cleaning-table/ActuelCleaningTable';
 import ConfirmList from './components/shared/ConfirmList';
 import CreateCleaningList from './components/shared/ConfirmList';
-import AddNewTask from './components/task/AddNewTask';
-import RegisterPerson from './components/shared/RegisterPerson';
-import AddNewAsistant from './components/asistant/AddNewAsistant' ;
+import TaskListContainer from './components/task/TaskListContainer';
+import PersonList from './components/shared/PersonList';
+import AsistantList from './components/asistant/AsistantList' ;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    width:"80vw",
-  },
+  // root: {
+  //   flexGrow: 1,
+  //   width:"80vw",
+  // },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
@@ -32,8 +32,8 @@ const App = () => {
 
   return ( 
     <Router>    
-    <main className="App">
-      <Grid  container spacing={2} >
+    <main  className="App">
+      <Grid container spacing={2} >
         <Grid item xs={12}>
             <Paper className={classes.paper}><AppBarMenü/></Paper>
           </Grid>
@@ -46,8 +46,8 @@ const App = () => {
               <Route exact path="/">
                 <Paper className={classes.paper}><ActuelCleaningTable/></Paper>
               </Route>
-              <Route path="/registerPerson">
-                <Paper className={classes.paper}><RegisterPerson/></Paper>
+              <Route path="/person-list">
+                <Paper className={classes.paper}><PersonList/></Paper>
               </Route>
               <Route path="/confirmList">
                 <Paper className={classes.paper}><ConfirmList/></Paper>
@@ -55,11 +55,11 @@ const App = () => {
               <Route path="/createCleaningList">
                 <Paper className={classes.paper}><CreateCleaningList/></Paper>
               </Route>
-              <Route path="/addNewTask">
-                <Paper className={classes.paper}><AddNewTask/></Paper>
+              <Route path="/tasks">
+                <Paper className={classes.paper}><TaskListContainer/></Paper>
               </Route>
-              <Route path="/addNewAsistant">
-                <Paper className={classes.paper}><AddNewAsistant/></Paper>
+              <Route path="/asistant-list">
+                <Paper className={classes.paper}><AsistantList/></Paper>
               </Route>
             </Grid>
           </Switch>

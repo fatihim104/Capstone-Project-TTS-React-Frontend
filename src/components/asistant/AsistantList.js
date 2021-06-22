@@ -1,5 +1,5 @@
 
-const AddNewAsistant = () => {
+const AsistantList = () => {
 
     return(
         <>
@@ -8,4 +8,4 @@ const AddNewAsistant = () => {
     )
 }
 
-export default AddNewAsistant;
+export default AsistantList;

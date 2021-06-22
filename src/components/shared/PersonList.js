@@ -1,5 +1,5 @@
 
-const RegisterPerson = () => {
+const PersonList = () => {
 
     return(
         <>
@@ -8,4 +8,4 @@ const RegisterPerson = () => {
     )
 }
 
-export default RegisterPerson;
+export default PersonList;
