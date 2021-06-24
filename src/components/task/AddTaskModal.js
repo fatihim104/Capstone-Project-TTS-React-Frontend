@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
   title : {
     backgroundColor: '#0069d9',
     fontWeight: 'bold'
+  },
+  bottom:{
+    marginBottom :theme.spacing(3),
   }
 }));
 
@@ -93,12 +96,12 @@ const TaskButton = () => {
                   
         <DialogContent className={classes.margin}>
             
-            <TextField id="standard-basic" className={classes.margin} label="Task Definition" fullWidth autoFocus />
+            <TextField id="standard-basic"  label="Task Definition" className={classes.bottom} fullWidth autoFocus />
             <TextField
                     id="time"
                     type="time"
                     defaultValue="07:30"
-                    className={classes.textField} 
+                    className={classes.bottom} 
                     margin="dense"
                     InputLabelProps={{
                     shrink: true,

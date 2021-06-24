@@ -1,4 +1,5 @@
 import React from 'react';
+import EditTaskModal from './EditkTaskModal'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import { red } from '@material-ui/core/colors';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -68,8 +68,8 @@ const TaskList = () => {
                   {row.name}
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.time}</StyledTableCell>
-                <StyledTableCell align="right"><EditIcon color="primary" /></StyledTableCell>
-                <StyledTableCell align="right"><DeleteIcon style={{ color: red[800] }}/></StyledTableCell>
+                <StyledTableCell align="right"><EditTaskModal/></StyledTableCell>
+                <StyledTableCell align="right"><DeleteIcon style={{ color: red[700] }}/></StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
