@@ -13,7 +13,7 @@ import ConfirmList from './components/shared/ConfirmList';
 import CreateCleaningList from './components/shared/ConfirmList';
 import TaskListContainer from './components/task/TaskListContainer';
 import PersonList from './components/shared/PersonList';
-import AsistantList from './components/asistant/AsistantList' ;
+import AsistantListContainer from './components/asistant/AsistantListContainer' ;
 
 const useStyles = makeStyles((theme) => ({
   // root: {
@@ -58,8 +58,8 @@ const App = () => {
               <Route path="/tasks">
                 <Paper className={classes.paper}><TaskListContainer/></Paper>
               </Route>
-              <Route path="/asistant-list">
-                <Paper className={classes.paper}><AsistantList/></Paper>
+              <Route path="/asistants">
+                <Paper className={classes.paper}><AsistantListContainer/></Paper>
               </Route>
             </Grid>
           </Switch>

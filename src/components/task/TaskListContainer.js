@@ -1,12 +1,12 @@
 import React from 'react';
 import TaskList from "./TaskList";
-import TaskButton from "./AddTaskModal";
+import AddTaskModal from "./AddTaskModal";
 
 const TaskListContainer = () => {
 
     return(
         <>
-            <TaskButton/>
+            <AddTaskModal/>
             <TaskList/>
         </>
     )

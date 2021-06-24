@@ -102,7 +102,7 @@ const SideMenü = () => {
 
                 <Divider/>
             
-            <Link to="/asistant-list">
+            <Link to="/asistants">
                 <List component="nav" aria-label="Asistant List">
                     <ListItem button selected={selectedIndex === 5} onClick={(event) => handleListItemClick(event,5)}>
                         <ListItemIcon>
