@@ -76,13 +76,13 @@ const SideMenü = () => {
 
                 <Divider/>
 
-            <Link to="/person-list">
+            <Link to="/persons">
                 <List component="nav" aria-label="Person List">
                     <ListItem button selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event,3)}>
                         <ListItemIcon>
                             <PersonAddTwoToneIcon color="primary" fontSize="large" />
                         </ListItemIcon>
-                        <ListItemText primary="Person List" />
+                        <ListItemText primary="Persons" />
                     </ListItem>   
                 </List>
             </Link>
@@ -108,7 +108,7 @@ const SideMenü = () => {
                         <ListItemIcon>
                             <GroupOutlinedIcon color="primary" fontSize="large" />
                         </ListItemIcon>
-                        <ListItemText primary="Asistant List" />
+                        <ListItemText primary="Asistants" />
                     </ListItem>   
                 </List>
             </Link>   

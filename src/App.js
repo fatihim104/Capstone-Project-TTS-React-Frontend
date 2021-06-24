@@ -12,7 +12,7 @@ import ActuelCleaningTable from './components/actuel-cleaning-table/ActuelCleani
 import ConfirmList from './components/shared/ConfirmList';
 import CreateCleaningList from './components/shared/ConfirmList';
 import TaskListContainer from './components/task/TaskListContainer';
-import PersonList from './components/shared/PersonList';
+import PersonListContainer from './components/person/PersonListContainer';
 import AsistantListContainer from './components/asistant/AsistantListContainer' ;
 
 const useStyles = makeStyles((theme) => ({
@@ -46,8 +46,8 @@ const App = () => {
               <Route exact path="/">
                 <Paper className={classes.paper}><ActuelCleaningTable/></Paper>
               </Route>
-              <Route path="/person-list">
-                <Paper className={classes.paper}><PersonList/></Paper>
+              <Route path="/persons">
+                <Paper className={classes.paper}><PersonListContainer/></Paper>
               </Route>
               <Route path="/confirmList">
                 <Paper className={classes.paper}><ConfirmList/></Paper>
