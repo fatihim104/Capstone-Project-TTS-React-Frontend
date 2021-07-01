@@ -1,4 +1,5 @@
 import React from 'react';
+import { useReducer, useState, useEffect } from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditIcon from '@material-ui/icons/Edit';
+import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -15,14 +17,22 @@ const useStyles = makeStyles((theme) => ({
     },
     title : {
       backgroundColor: '#0069d9',
-      // fontWeight: 'bold'
+      color: '#fff',
+      fontWeight: 'bolder'
     },
     bottom:{
       marginBottom :theme.spacing(3),
     }
-  }));
+}));
 
-const EditAsistantModal = () => {
+const formReducer = (state, event) => {
+    return {
+      ...state,
+      [event.name]: event.value
+    }
+}
+
+const EditAsistantModal = ({asistantId, handleAsistantUpdate}) => {
     const classes = useStyles();
   
     const [open, setOpen] = React.useState(false);
@@ -44,27 +54,56 @@ const EditAsistantModal = () => {
     const handleMaxWidthChange = (event) => {
       setMaxWidth(event.target.value);
     };
+
+    const [formUpData, setFormUpData] = useReducer(formReducer, {});
+
+  const handleChange = event => {
+    setFormUpData({
+      name: event.target.name,
+      value: event.target.value,
+    });
+  }
+
+  const [asistant, setAsistant] = useState({});
+
+    function readAsistantByIdFromBackend(asistantId){
+        fetch(`http://localhost:3000/assistants/${asistantId}`)
+              .then(response => response.json())
+              .then(data => setAsistant(data));
+    }
+
+    useEffect(() => {
+      readAsistantByIdFromBackend(asistantId);
+    }, []);  
+  
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    handleAsistantUpdate(asistantId, formUpData);
+    handleClose()
+  }
   
     return (
       <div>
         <Button onClick={handleClickOpen}>
-          <EditIcon color="primary"/>
+          <EditIcon style={{ color: green[900] }}/>
         </Button>
   
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={fullWidth} maxWidth={maxWidth}>
+        <Dialog onSubmit={handleUpdate} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={fullWidth} maxWidth={maxWidth}>
          
-          <DialogTitle id="form-dialog-title" className={classes.title}>Edit AsistantAddButton</DialogTitle>
+          <DialogTitle id="form-dialog-title" className={classes.title}>Edit Asistant</DialogTitle>
                     
           <DialogContent className={classes.margin}>
-            <TextField id="standard-basic"  label="Asistant Name" className={classes.bottom} fullWidth autoFocus />
-            <TextField id="standard-basic"  label="Asistant Lastname" className={classes.bottom} fullWidth autoFocus />        
+            <TextField id="standard-basic" name="firstName" defaultValue={asistant.firstName} label="Name" className={classes.bottom} onChange={handleChange}  fullWidth autoFocus />
+            <TextField id="standard-basic" name="lastName" defaultValue={asistant.lastName}  label="Lastname" className={classes.bottom} onChange={handleChange}  fullWidth autoFocus />
+            <TextField id="standard-basic" type="email" name="email" defaultValue={asistant.email} label="E-mail" className={classes.bottom} onChange={handleChange}  fullWidth autoFocus />
+            <TextField id="standard-basic" type="password" name="password" defaultValue={asistant.password} label="Password" className={classes.bottom} onChange={handleChange}  fullWidth autoFocus />        
           </DialogContent>
 
           <DialogActions className={classes.margin}>
             <Button variant="contained" color="secondary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button  variant="contained" color="primary" onClick={handleClose}>
+            <Button  type="submit" variant="contained" color="primary" onClick={handleUpdate}>
               Update
             </Button>
           </DialogActions>

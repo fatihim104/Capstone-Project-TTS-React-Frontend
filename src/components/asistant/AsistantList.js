@@ -1,6 +1,7 @@
 import React from 'react';
 import EditAsistantModal from './EditAsistantModal'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -30,15 +31,15 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, lastname) {
-  return { name, lastname };
-}
+// function createData(name, lastname) {
+//   return { name, lastname };
+// }
 
-const rows = [
-  createData('Hans', 'Peter'),
-  createData('Thomas', 'Mayer'),
-  createData('Brus', 'Lee')
-];
+// const rows = [
+//   createData('Hans', 'Peter'),
+//   createData('Thomas', 'Mayer'),
+//   createData('Brus', 'Lee')
+// ];
 
 const useStyles = makeStyles({
   table: {
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TaskList = () => {
+const AsistantList = ({asistantList, handleAsistantDelete, handleAsistantUpdate}) => {
     const classes = useStyles();
 
     return (
@@ -54,21 +55,25 @@ const TaskList = () => {
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Asistant Name</StyledTableCell>
+              <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="left" >Last Name</StyledTableCell>
+              <StyledTableCell align="left" >E-mail</StyledTableCell>
+              <StyledTableCell align="left" >PassWord</StyledTableCell>
               <StyledTableCell align="right">Update</StyledTableCell>
               <StyledTableCell align="right">Delete</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {asistantList.map((asistant) => (
+              <StyledTableRow key={asistant.id}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {asistant.firstName}
                 </StyledTableCell>
-                <StyledTableCell align="left">{row.lastname}</StyledTableCell>
-                <StyledTableCell align="right"><EditAsistantModal/></StyledTableCell>
-                <StyledTableCell align="right"><DeleteIcon style={{ color: red[700] }}/></StyledTableCell>
+                <StyledTableCell align="left">{asistant.lastName}</StyledTableCell>
+                <StyledTableCell align="left">{asistant.email}</StyledTableCell>
+                <StyledTableCell align="left">{asistant.password}</StyledTableCell>
+                <StyledTableCell align="right"><EditAsistantModal taskList={asistantList} handleAsistantUpdate = {handleAsistantUpdate} asistantId={asistant.id}/></StyledTableCell>
+                <StyledTableCell align="right"><Button onClick={() => handleAsistantDelete(asistant.id)}><DeleteIcon  style={{ color: red[600] }}/></Button></StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
@@ -77,4 +82,4 @@ const TaskList = () => {
     );
 }
 
-export default TaskList;
+export default AsistantList;
