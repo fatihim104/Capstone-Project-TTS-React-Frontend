@@ -1,11 +1,18 @@
-import React from 'react';
-import {withStyles, makeStyles} from '@material-ui/core/styles';
+import React, { useReducer } from 'react';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+const modalReducer = (state, event) => {
+  return {
+    ...state,
+    [event.name]: event.value
+  }
+}
 
 const PersonAddButton = withStyles({
   root: {
@@ -17,19 +24,19 @@ const PersonAddButton = withStyles({
     border: '1px solid',
     lineHeight: 2,
     backgroundColor: '#0063cc',
-    borderColor: '#0063cc', 
+    borderColor: '#0063cc',
     fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(','),
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
     '&:hover': {
       backgroundColor: '#0069d9',
       borderColor: '#0062cc',
@@ -49,18 +56,18 @@ const PersonAddButton = withStyles({
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(2),
-    float : 'right',
+    float: 'right',
   },
-  title : {
+  title: {
     backgroundColor: '#0069d9',
     fontWeight: 'bold'
   },
-  bottom:{
-    marginBottom :theme.spacing(3),
+  bottom: {
+    marginBottom: theme.spacing(3),
   }
 }));
 
-const AddPersonModal = () => {
+const AddPersonModal = (props) => {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -82,6 +89,20 @@ const AddPersonModal = () => {
   const handleMaxWidthChange = (event) => {
     setMaxWidth(event.target.value);
   };
+  const [modalData, setModalData] = useReducer(modalReducer, {});
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    props.onSubmitModal(modalData);
+    handleClose();
+  }
+
+  const handleChange = event => {
+    setModalData({
+      name: event.target.name,
+      value: event.target.value,
+    });
+  }
 
   return (
     <div>
@@ -91,24 +112,23 @@ const AddPersonModal = () => {
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={fullWidth}
         maxWidth={maxWidth}>
-       
+
         <DialogTitle id="form-dialog-title" className={classes.title}>Add New Person</DialogTitle>
-                  
-        <DialogContent className={classes.margin}>
-          <TextField id="standard-basic"  label="Person Name" className={classes.bottom} fullWidth autoFocus />
-          <TextField id="standard-basic"  label="Lastname" className={classes.bottom} fullWidth autoFocus />
-          <TextField id="standard-basic"  label="Lastname" className={classes.bottom} fullWidth autoFocus />
-          <TextField id="standard-basic"  label="Lastname" className={classes.bottom} fullWidth autoFocus />
-          <TextField id="standard-basic"  label="Lastname" className={classes.bottom} fullWidth autoFocus />
-          <TextField id="standard-basic"  label="Lastname" className={classes.bottom} fullWidth autoFocus />
-          <TextField id="standard-basic"  label="Lastname" className={classes.bottom} fullWidth autoFocus />        
+
+        <DialogContent className={classes.margin} >
+          <TextField name='firstName' id="standard-basic" label="First Name" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
+          <TextField name='lastName' id="standard-basic" label="Last Name" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
+          <TextField name='email' type="email" id="standard-basic" label="Email" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
+          <TextField name='password' type="password" id="standard-basic" label="Password" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
+          <TextField name='arrival_date' type="date" id="standard-basic" label="Arrival Date" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
+          <TextField name='amount_of_work' id="standard-basic" label="Amount of Work" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
         </DialogContent>
-        
+
         <DialogActions className={classes.margin}>
           <Button variant="contained" color="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button  variant="contained" color="primary" onClick={handleClose}>
+          <Button variant="contained" color="primary" type='submit' onClick={handleSubmit}>
             Add
           </Button>
         </DialogActions>
