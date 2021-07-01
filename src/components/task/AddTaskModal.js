@@ -1,4 +1,5 @@
 import React from 'react';
+import { useReducer} from 'react';
 import {withStyles, makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -53,34 +54,49 @@ const useStyles = makeStyles((theme) => ({
   },
   title : {
     backgroundColor: '#0069d9',
-    fontWeight: 'bold'
+    color: '#fff',
+    font: 'bolder'
   },
   bottom:{
     marginBottom :theme.spacing(3),
   }
 }));
 
-const TaskButton = () => {
+const formReducer = (state, event) => {
+  return {
+    ...state,
+    [event.name]: event.value
+  }
+}
+
+const TaskButton = (props) => {
+  const [formData, setFormData] = useReducer(formReducer, {});
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    props.onSubmitForm(formData);
+    handleClose()
+  }
+
+  const handleChange = event => {
+    setFormData({
+      name: event.target.name,
+      value: event.target.value,
+    });
+  }
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
 
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = () => {    
     setOpen(false);
-  };
-
-  const handleFullWidthChange = (event) => {
-    setFullWidth(event.target.checked);
-  };
-
-  const handleMaxWidthChange = (event) => {
-    setMaxWidth(event.target.value);
   };
 
   return (
@@ -89,17 +105,17 @@ const TaskButton = () => {
         ADD TASK
       </TaskAddButton>
 
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={fullWidth}
-        maxWidth={maxWidth}>
+      <Dialog  onSubmit={handleSubmit} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth={fullWidth} maxWidth={maxWidth}>
        
         <DialogTitle id="form-dialog-title" className={classes.title}>Add New Task</DialogTitle>
                   
         <DialogContent className={classes.margin}>
             
-            <TextField id="standard-basic"  label="Task Definition" className={classes.bottom} fullWidth autoFocus />
+            <TextField id="standard-basic" name="place_name" label="Task Name" className={classes.bottom} onChange={handleChange} fullWidth autoFocus />
             <TextField
                     id="time"
                     type="time"
+                    name="date"
                     defaultValue="07:30"
                     className={classes.bottom} 
                     margin="dense"
@@ -109,6 +125,7 @@ const TaskButton = () => {
                     inputProps={{
                     step: 300, // 5 min
                     }}
+                    onChange={handleChange}
                     autoFocus
                     fullWidth
             />
@@ -118,7 +135,7 @@ const TaskButton = () => {
           <Button variant="contained" color="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button  variant="contained" color="primary" onClick={handleClose}>
+          <Button  variant="contained" color="primary" type="submit" onClick={handleSubmit}>
             Add
           </Button>
         </DialogActions>

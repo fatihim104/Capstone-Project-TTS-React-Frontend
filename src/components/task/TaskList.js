@@ -1,6 +1,7 @@
 import React from 'react';
 import EditTaskModal from './EditTaskModal'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -30,16 +31,16 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, time) {
-  return { name, time };
-}
+// function createData(name, time) {
+//   return { name, time };
+// }
 
-const rows = [
-  createData('Kitchen', 12.00),
-  createData('Eating Room', 13.00),
-  createData('Stairs', 9.00),
-  createData('Toilets', 18.00)
-];
+// const rows = [
+//   createData('Kitchen', 12.00),
+//   createData('Eating Room', 13.00),
+//   createData('Stairs', 9.00),
+//   createData('Toilets', 18.00)
+// ];
 
 const useStyles = makeStyles({
   table: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TaskList = () => {
+const TaskList = ({taskList, handleTaskDelete, handleTaskUpdate}) => {
     const classes = useStyles();
 
     return (
@@ -55,21 +56,21 @@ const TaskList = () => {
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Task Name</StyledTableCell>
+              <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="right" type="time">Time</StyledTableCell>
               <StyledTableCell align="right">Update</StyledTableCell>
               <StyledTableCell align="right">Delete</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {taskList.map((task) => (
+              <StyledTableRow key={task.id}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {task.place_name}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.time}</StyledTableCell>
-                <StyledTableCell align="right"><EditTaskModal/></StyledTableCell>
-                <StyledTableCell align="right"><DeleteIcon style={{ color: red[700] }}/></StyledTableCell>
+                <StyledTableCell align="right">{task.date}</StyledTableCell>
+                <StyledTableCell align="right"><EditTaskModal taskList={taskList} handleTaskUpdate = {handleTaskUpdate} taskId={task.id}/></StyledTableCell>
+                <StyledTableCell align="right"><Button onClick={() => handleTaskDelete(task.id)}><DeleteIcon  style={{ color: red[600] }}/></Button></StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
