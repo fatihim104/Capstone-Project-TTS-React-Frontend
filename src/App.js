@@ -11,7 +11,7 @@ import AppBarMenü from './components/layout/AppBarMenu';
 import SideMenü from './components/layout/SideMenu';
 import ActuelCleaningTable from './components/actuel-cleaning-table/ActuelCleaningTable';
 import ConfirmList from './components/shared/ConfirmList';
-import CreateCleaningList from './components/shared/ConfirmList';
+import CreateCleaningList from './components/cleaning-list/CreateCleaningList';
 import TaskListContainer from './components/task/TaskListContainer';
 import PersonListContainer from './components/person/PersonListContainer';
 import AsistantListContainer from './components/asistant/AsistantListContainer' ;
@@ -37,7 +37,7 @@ const App = () => {
       <Grid container spacing={2} >
         <Grid item xs={12}>
             <Paper className={classes.paper}><AppBarMenü/></Paper>
-          </Grid>
+        </Grid>
 
           <Grid item xs={3}>
             <Paper className={classes.paper}><SideMenü/></Paper>
