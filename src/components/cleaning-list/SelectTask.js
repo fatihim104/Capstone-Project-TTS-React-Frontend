@@ -13,38 +13,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectTask = () => {
-    
-    const classes = useStyles();
-    const [state, setState] = React.useState({
-      task: '',
-      name: 'hai',
+const SelectTask = ({taskList, setTaskId}) => {
+  const classes = useStyles();
+
+  const [state, setState] = React.useState({
+    age: '',
+    name: '',
+  });
+
+  const handleChange = (event) => {
+
+    const index = event.target.selectedIndex;
+    const el = event.target.childNodes[index]
+    const taskId =  el.getAttribute('id');
+    setTaskId(taskId)
+
+    // console.log(taskId)
+
+    const name = event.target.name;
+    setState({
+      ...state,
+      [name]: event.target.value,
+
     });
-  
-    const handleChange = (event) => {
-      const name = event.target.name;
-      setState({
-        ...state,
-        [name]: event.target.value,
-      });
-    };
-  
+  };
+    
     return (
-        <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl}>
         <NativeSelect
           value={state.task}
           onChange={handleChange}
           name="task"
           className={classes.selectEmpty}
-          inputProps={{ 'aria-label': 'task' }}
-        >
-          <option value="">None</option>
-          <option value={'Kitchen'}>Kitchen</option>
-          <option value={'Doors'}>Doors</option>
-          <option value={'Stairs'}>Stairs</option>
-          <option value={'Stairs'}>Stairs</option>
-          <option value={'Stairs'}>Stairs</option>
-          <option value={'Stairs'}>Stairs</option>
+          inputProps={{
+            name: 'task',
+            id: 'age-native-label-placeholder',
+          }}
+          
+          >
+          {taskList.map((task) => (<option id={task.id} value={task.place_name}>{task.place_name}</option> ))}
+           
         </NativeSelect>
       </FormControl>
     )

@@ -16,6 +16,8 @@ import TaskListContainer from './components/task/TaskListContainer';
 import PersonListContainer from './components/person/PersonListContainer';
 import AsistantListContainer from './components/asistant/AsistantListContainer' ;
 
+import { TaskProvider } from './components/cleaning-list/TaskContext';
+
 const useStyles = makeStyles((theme) => ({
   // root: {
   //   flexGrow: 1,
@@ -32,7 +34,8 @@ const App = () => {
   const classes = useStyles();
 
   return ( 
-    <Router>    
+    <Router>  
+    <TaskProvider>  
     <main  className="App">
       <Grid container spacing={2} >
         <Grid item xs={12}>
@@ -68,6 +71,7 @@ const App = () => {
         {/* <SignIn/> */}
         
     </main>
+    </TaskProvider>
   </Router>   
   );
 }

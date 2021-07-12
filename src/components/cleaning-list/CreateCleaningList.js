@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { TaskContext } from './TaskContext';
 import SelectTask from './SelectTask'
 import SelectDate from './SelectDate'
 import AssignButton from './AssignButton'
@@ -30,17 +31,17 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, lastname) {
-  return { name, lastname };
-}
+// function createData(name, lastname) {
+//   return { name, lastname };
+// }
 
-const rows = [
-  createData('Hans', 'Peter'),
-  createData('Thomas', 'Mayer'),
-  createData('Brus', 'Lee'),
-  createData('Barni', 'Moloztas'),
-  createData('Fred', 'Cakmaktas'),
-];
+// const rows = [
+//   createData('Hans', 'Peter'),
+//   createData('Thomas', 'Mayer'),
+//   createData('Brus', 'Lee'),
+//   createData('Barni', 'Moloztas'),
+//   createData('Fred', 'Cakmaktas'),
+// ];
 
 const useStyles = makeStyles({
   table: {
@@ -54,32 +55,65 @@ const useStyles = makeStyles({
 const CreateCleaningList = () => {
     const classes = useStyles();
 
-    return (
-    <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell >Last Name</StyledTableCell>
-              <StyledTableCell>Date</StyledTableCell>
-              <StyledTableCell >Select Task</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.id}>
-                <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
-                <StyledTableCell>{row.lastname}</StyledTableCell>
-                <StyledTableCell><SelectDate/></StyledTableCell>
-                <StyledTableCell ><SelectTask/></StyledTableCell>
-                <StyledTableCell align="right"><AssignButton/></StyledTableCell>
-              </StyledTableRow>
-            ))}
-        </TableBody>
-        </Table>
-      </TableContainer>
-    );
+    const {personList, taskList} = React.useContext(TaskContext);
+    const [statePersonList, setStatePersonList] = personList;
+    const [stateTaskList, setStateTaskList] = taskList;
+  
+    const [personId, setPersonId] = useState();
+    const [taskId, setTaskId] = useState();
+    const [taskDate, setTaskDate] = useState({});
+
+    function handleCreateListSubmit(event){
+
+      const person=event.target.closest("tr").firstChild;
+      const selectedPersonId=person.dataset.personid;
+        setPersonId(selectedPersonId)
+
+      const tableData={
+      "personId":+selectedPersonId,
+      "taskId":+taskId,
+      "date":Date(taskDate),
+      "asistanId":6,
+      "status":0
+      }
+      console.log(tableData)
+      
+        fetch('http://localhost:3000/creatTaskList/', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(tableData)
+        })          
+          .catch(error => console.log(error));
+
+    }   
+  
+    return ( 
+      <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell >Last Name</StyledTableCell>
+                <StyledTableCell>Date</StyledTableCell>
+                <StyledTableCell >Select Task</StyledTableCell>
+                <StyledTableCell align="right"></StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {statePersonList.map((person,index) => (
+                <StyledTableRow key={index}>
+                  <StyledTableCell id="person" data-personId={person.id} component="th" scope="row">{person.firstName}</StyledTableCell>
+                  <StyledTableCell>{person.lastName}</StyledTableCell>
+                  <StyledTableCell><SelectDate setTaskDate={setTaskDate}/></StyledTableCell>
+                  <StyledTableCell ><SelectTask taskList={stateTaskList} setTaskId={setTaskId}/></StyledTableCell>
+                  <StyledTableCell align="right"><AssignButton handleCreateListSubmit={handleCreateListSubmit}  /></StyledTableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+          </Table>
+        </TableContainer>
+      
+    )
 }
 
 export default CreateCleaningList;
