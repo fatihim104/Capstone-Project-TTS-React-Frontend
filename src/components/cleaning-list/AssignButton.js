@@ -15,12 +15,12 @@ const theme = createMuiTheme({
   }
 });
 
-const AssignButton = () => {
+const AssignButton = ({handleCreateListSubmit}) => {
   const classes = useStyles();
 
   return (
     <ThemeProvider theme={theme}>
-      <Button onClick={() => alert("atandi")} variant="contained" color="primary" className={classes.margin}>
+      <Button onClick={ handleCreateListSubmit} variant="contained" color="primary" className={classes.margin}>
         ASSIGN
       </Button>
     </ThemeProvider>
