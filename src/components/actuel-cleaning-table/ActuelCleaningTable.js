@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import PersonTableList from './PersonTableList.js'
 import TaskTableList from './TaskTableList.js'
 import Button from '@material-ui/core/Button';
+import Badge from '@material-ui/core/Badge';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -71,6 +72,18 @@ const ActuelCleaningTable = () => {
     creatTaskListUpdate(pId, succesDate)
   }
 
+  function convertBadgeFromStatus(pStatus) {
+    if (pStatus === 0) {
+      return <Badge badgeContent={"Yapilmadi"} />
+    }
+    else if (pStatus === 1) {
+      return "Status 1"
+    }
+    else if (pStatus === 2) {
+      return "Status 2"
+    }
+  }
+
   return (
     <TableContainer component={Paper} className={classes.table}>
       <Table aria-label="customized table">
@@ -90,7 +103,7 @@ const ActuelCleaningTable = () => {
             < StyledTableRow key={row.id} >
               <PersonTableList pId={row.personId} />
               <TaskTableList pId={row.taskId} />
-              <StyledTableCell align="center">{row.status}</StyledTableCell>
+              <StyledTableCell align="center">{convertBadgeFromStatus(row.status)}</StyledTableCell>
               <StyledTableCell align="center">{row.date}</StyledTableCell>
               <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusPersonSucces)} variant="contained" color="primary" >P.Succes</Button></StyledTableCell>
               <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusAsisstentSucces)} variant="contained" color="primary">A.Succes</Button></StyledTableCell>
