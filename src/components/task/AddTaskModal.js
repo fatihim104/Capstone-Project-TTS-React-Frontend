@@ -110,27 +110,9 @@ const TaskButton = (props) => {
         <DialogTitle id="form-dialog-title" className={classes.title}>Add New Task</DialogTitle>
                   
         <DialogContent className={classes.margin}>
-            
             <TextField id="standard-basic" name="place_name" label="Task Name" className={classes.bottom} onChange={handleChange} fullWidth autoFocus />
-            <TextField
-                    id="time"
-                    type="time"
-                    name="date"
-                    defaultValue="07:30"
-                    className={classes.bottom} 
-                    margin="dense"
-                    InputLabelProps={{
-                    shrink: true,
-                    }}
-                    inputProps={{
-                    step: 300, // 5 min
-                    }}
-                    onChange={handleChange}
-                    autoFocus
-                    fullWidth
-            />
-         
         </DialogContent>
+
         <DialogActions className={classes.margin}>
           <Button variant="contained" color="secondary" onClick={handleClose}>
             Cancel

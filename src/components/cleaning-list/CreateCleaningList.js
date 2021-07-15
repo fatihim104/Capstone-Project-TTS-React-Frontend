@@ -73,12 +73,13 @@ const CreateCleaningList = () => {
       "personId":+selectedPersonId,
       "taskId":+taskId,
       "date":Date(taskDate),
-      "asistanId":6,
+      "asistanId":7,
       "status":0
       }
       console.log(tableData)
       
-        fetch('http://localhost:3000/creatTaskList/', {
+        fetch('http://localhost:3000/creatTaskList/', 
+        {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(tableData)

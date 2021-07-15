@@ -57,7 +57,6 @@ const TaskList = ({taskList, handleTaskDelete, handleTaskUpdate}) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="right" type="time">Time</StyledTableCell>
               <StyledTableCell align="right">Update</StyledTableCell>
               <StyledTableCell align="right">Delete</StyledTableCell>
             </TableRow>
@@ -65,10 +64,7 @@ const TaskList = ({taskList, handleTaskDelete, handleTaskUpdate}) => {
           <TableBody>
             {taskList.map((task) => (
               <StyledTableRow key={task.id}>
-                <StyledTableCell component="th" scope="row">
-                  {task.place_name}
-                </StyledTableCell>
-                <StyledTableCell align="right">{task.date}</StyledTableCell>
+                <StyledTableCell component="th" scope="row">{task.place_name}</StyledTableCell>
                 <StyledTableCell align="right"><EditTaskModal taskList={taskList} handleTaskUpdate = {handleTaskUpdate} taskId={task.id}/></StyledTableCell>
                 <StyledTableCell align="right"><Button onClick={() => handleTaskDelete(task.id)}><DeleteIcon  style={{ color: red[600] }}/></Button></StyledTableCell>
               </StyledTableRow>

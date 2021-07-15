@@ -94,24 +94,6 @@ const EditTaskModal = ({taskId, handleTaskUpdate}) => {
                     
           <DialogContent className={classes.margin}>
               <TextField id="standard-basic" name="place_name" defaultValue={task.place_name} onChange={handleChange} label="task name" className={classes.bottom} fullWidth autoFocus/>
-              <TextField
-                      id="time"
-                      type="time"
-                      name="date"
-                      defaultValue="07:30"
-                      // className={classes.textField}
-                      className={classes.bottom}
-                      margin="dense"
-                      InputLabelProps={{
-                      shrink: true,
-                      }}
-                      inputProps={{
-                      step: 300, // 5 min
-                      }}
-                      onChange={handleChange}
-                      autoFocus
-                      fullWidth
-              />
           </DialogContent>
 
           <DialogActions className={classes.margin}>
