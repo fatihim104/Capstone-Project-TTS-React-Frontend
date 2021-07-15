@@ -6,10 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
+import LoginButton from '../login/LoginButton'
+import LogoutButton from '../login/LogoutButton'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,    
+    flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(1),
@@ -17,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
- 
+
 }
 ));
 
@@ -28,13 +30,13 @@ const AppBarMenü = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar >
-          <IconButton edge="start" className={classes.menuButton}  aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} aria-label="menu">
             <Avatar alt="-name-" src="" />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Welcome (..name..)
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit"><LoginButton /><LogoutButton /></Button>
         </Toolbar>
       </AppBar>
     </div>
