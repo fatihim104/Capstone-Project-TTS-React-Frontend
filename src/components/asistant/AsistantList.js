@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { red } from '@material-ui/core/colors';
+import MaskData from 'maskdata';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -71,7 +72,7 @@ const AsistantList = ({asistantList, handleAsistantDelete, handleAsistantUpdate}
                 </StyledTableCell>
                 <StyledTableCell align="left">{asistant.lastName}</StyledTableCell>
                 <StyledTableCell align="left">{asistant.email}</StyledTableCell>
-                <StyledTableCell align="left">{asistant.password}</StyledTableCell>
+                <StyledTableCell align="left">{MaskData.maskPassword(asistant.password)}</StyledTableCell>
                 <StyledTableCell align="right"><EditAsistantModal taskList={asistantList} handleAsistantUpdate = {handleAsistantUpdate} asistantId={asistant.id}/></StyledTableCell>
                 <StyledTableCell align="right"><Button onClick={() => handleAsistantDelete(asistant.id)}><DeleteIcon  style={{ color: red[600] }}/></Button></StyledTableCell>
               </StyledTableRow>
