@@ -1,7 +1,7 @@
 
 const ConfirmList = () => {
 
-    return(
+    return (
         <>
             <h1> ACTUEL CLEANIN LIST/CONFIRM </h1>
         </>

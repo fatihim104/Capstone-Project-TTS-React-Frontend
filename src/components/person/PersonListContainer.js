@@ -2,8 +2,10 @@
 import PersonList from "./PersontList";
 import AddPersonModal from "./AddPersonModal";
 import React, { useState, useEffect } from 'react';
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "../login/loading.js";
 
-const TaskListContainer = () => {
+const PersonListContainer = () => {
 
     const [personList, setPersonList] = useState([]);
     const personsUrl = 'http://localhost:3000/persons'
@@ -58,4 +60,6 @@ const TaskListContainer = () => {
     )
 }
 
-export default TaskListContainer;
+export default withAuthenticationRequired(PersonListContainer, {
+    onRedirecting: () => <Loading />,
+});
