@@ -46,6 +46,10 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+
+  badge: {
+    color:'white'
+  }
 });
 
 const AsistantList = ({asistantList, handleAsistantDelete, handleAsistantUpdate}) => {
