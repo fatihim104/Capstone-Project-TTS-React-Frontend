@@ -45,7 +45,7 @@ const useStyles = makeStyles({
   },
   badge: {
     fontWeight:'bold',
-    color:'green'
+    // color:'green'
   }
 
 });
@@ -92,7 +92,7 @@ const ActuelCleaningTable = () => {
       }else if(pStatus === 1){
               return (<Badge color='primary' badgeContent='Done'/>);
       }else if(pStatus === 2){
-              return (<Badge className={classes.badge} badgeContent='Confirmed'/>)
+              return (<Badge className="badge-confirmed" badgeContent='Confirmed'/>)
       }
   }
 
