@@ -4,7 +4,7 @@ import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // import SignIn from './components/login/SignIn';
 import AppBarMenü from './components/layout/AppBarMenu';
@@ -14,8 +14,9 @@ import ConfirmList from './components/shared/ConfirmList';
 import CreateCleaningList from './components/cleaning-list/CreateCleaningList';
 import TaskListContainer from './components/task/TaskListContainer';
 import PersonListContainer from './components/person/PersonListContainer';
-import AsistantListContainer from './components/asistant/AsistantListContainer' ;
-
+import AsistantListContainer from './components/asistant/AsistantListContainer';
+import Loading from "./components/login/loading.js";
+import { useAuth0 } from "@auth0/auth0-react";
 import { TaskProvider } from './components/cleaning-list/TaskContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,47 +33,52 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
+  const { isLoading } = useAuth0();
 
-  return ( 
-    <Router>  
-    <TaskProvider>  
-    <main  className="App">
-      <Grid container spacing={2} >
-        <Grid item xs={12}>
-            <Paper className={classes.paper}><AppBarMenü/></Paper>
-        </Grid>
+  if (isLoading) {
+    return <Loading />;
+  }
 
-          <Grid item xs={3}>
-            <Paper className={classes.paper}><SideMenü/></Paper>
-          </Grid>
-          <Switch>
-            <Grid item xs={9}>
-              <Route exact path="/">
-                <Paper className={classes.paper}><ActuelCleaningTable/></Paper>
-              </Route>
-              <Route path="/persons">
-                <Paper className={classes.paper}><PersonListContainer/></Paper>
-              </Route>
-              <Route path="/confirmList">
-                <Paper className={classes.paper}><ConfirmList/></Paper>
-              </Route>
-              <Route path="/createCleaningList">
-                <Paper className={classes.paper}><CreateCleaningList/></Paper>
-              </Route>
-              <Route path="/tasks">
-                <Paper className={classes.paper}><TaskListContainer/></Paper>
-              </Route>
-              <Route path="/asistants">
-                <Paper className={classes.paper}><AsistantListContainer/></Paper>
-              </Route>
+  return (
+    <Router>
+      <TaskProvider>
+        <main className="App">
+          <Grid container spacing={2} >
+            <Grid item xs={12}>
+              <Paper className={classes.paper}><AppBarMenü /></Paper>
             </Grid>
-          </Switch>
-      </Grid>
-        {/* <SignIn/> */}
-        
-    </main>
-    </TaskProvider>
-  </Router>   
+
+            <Grid item xs={3}>
+              <Paper className={classes.paper}><SideMenü /></Paper>
+            </Grid>
+            <Switch>
+              <Grid item xs={9}>
+                <Route exact path="/">
+                  <Paper className={classes.paper}><ActuelCleaningTable /></Paper>
+                </Route>
+                <Route path="/persons">
+                  <Paper className={classes.paper}><PersonListContainer /></Paper>
+                </Route>
+                <Route path="/confirmList">
+                  <Paper className={classes.paper}><ConfirmList /></Paper>
+                </Route>
+                <Route path="/createCleaningList">
+                  <Paper className={classes.paper}><CreateCleaningList /></Paper>
+                </Route>
+                <Route path="/tasks">
+                  <Paper className={classes.paper}><TaskListContainer /></Paper>
+                </Route>
+                <Route path="/asistants">
+                  <Paper className={classes.paper}><AsistantListContainer /></Paper>
+                </Route>
+              </Grid>
+            </Switch>
+          </Grid>
+          {/* <SignIn/> */}
+
+        </main>
+      </TaskProvider>
+    </Router>
   );
 }
 
