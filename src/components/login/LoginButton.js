@@ -8,7 +8,7 @@ const LoginButton = () => {
             <Button color="inherit"
                 onClick={() => loginWithRedirect()}
             >
-                Log In
+                Login
             </Button>
         )
     );

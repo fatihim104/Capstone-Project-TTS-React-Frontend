@@ -4,6 +4,9 @@ import AsistantList from "./AsistantList";
 import AddAsistantModal from "./AddAsistantModal";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "../login/loading.js";
+
 
 const MySwal = withReactContent(Swal)
 const successAlert = () => MySwal.fire({
@@ -122,4 +125,6 @@ const AsistantListContainer = () => {
   )
 }
 
-export default AsistantListContainer;
+export default withAuthenticationRequired(AsistantListContainer, {
+  onRedirecting: () => <Loading />,
+});
