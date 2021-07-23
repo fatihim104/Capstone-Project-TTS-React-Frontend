@@ -11,11 +11,14 @@ import PersonTableList from './PersonTableList.js'
 import TaskTableList from './TaskTableList.js'
 import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
+import green from '@material-ui/core/colors/green';
+import { createTheme } from '@material-ui/core/styles';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: '#3F51B5',
     color: theme.palette.common.white,
+    fontWeight: 'bold',
   },
   body: {
     fontSize: 14,
@@ -37,9 +40,15 @@ const useStyles = makeStyles({
     width: '95%',
     textAlign: 'center',
   },
+  badge: {
+    fontWeight: 'bold',
+    // color:'green'
+  }
+
 });
 
 const ActuelCleaningTable = () => {
+
   const classes = useStyles();
   const [ActuelCleaningList, setActuelCleaningList] = useState([]);
   const actuelCleanigListUrl = 'http://localhost:3000/creatTaskList'
@@ -61,26 +70,26 @@ const ActuelCleaningTable = () => {
       .then(() => readPersonIdAndTaskIdFromBackend())
       .catch(error => console.log(error));
   }
+
   useEffect(() => {
     readPersonIdAndTaskIdFromBackend();
   }, []);
 
   function StatusUpdatePerson(pId, pSuccesKod) {
-    let succesDate = {
+    let succesData = {
       'status': pSuccesKod,
     }
-    creatTaskListUpdate(pId, succesDate)
+    creatTaskListUpdate(pId, succesData)
   }
 
-  function convertBadgeFromStatus(pStatus) {
+  function convertStatusCode(pStatus) {
+
     if (pStatus === 0) {
-      return <Badge badgeContent={"Yapilmadi"} />
-    }
-    else if (pStatus === 1) {
-      return "Status 1"
-    }
-    else if (pStatus === 2) {
-      return "Status 2"
+      return (<Badge color='secondary' badgeContent='Pending' />);
+    } else if (pStatus === 1) {
+      return (<Badge color='primary' badgeContent='Done' />);
+    } else if (pStatus === 2) {
+      return (<Badge className="badge-confirmed" badgeContent='Confirmed' />)
     }
   }
 
@@ -103,7 +112,7 @@ const ActuelCleaningTable = () => {
             < StyledTableRow key={row.id} >
               <PersonTableList pId={row.personId} />
               <TaskTableList pId={row.taskId} />
-              <StyledTableCell align="center">{convertBadgeFromStatus(row.status)}</StyledTableCell>
+              <StyledTableCell align="center" >{convertStatusCode(row.status)}</StyledTableCell>
               <StyledTableCell align="center">{row.date}</StyledTableCell>
               <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusPersonSucces)} variant="contained" color="primary" >P.Succes</Button></StyledTableCell>
               <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusAsisstentSucces)} variant="contained" color="primary">A.Succes</Button></StyledTableCell>

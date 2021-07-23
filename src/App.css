@@ -37,3 +37,8 @@
     transform: rotate(360deg);
   }
 }
+
+.badge-confirmed span{
+  background-color: green;
+  color: #fff;
+}

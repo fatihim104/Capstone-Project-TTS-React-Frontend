@@ -121,7 +121,6 @@ const AddPersonModal = (props) => {
           <TextField name='email' type="email" id="standard-basic" label="Email" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
           <TextField name='password' type="password" id="standard-basic" label="Password" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
           <TextField name='arrival_date' type="date" id="standard-basic" label="Arrival Date" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
-          <TextField name='amount_of_work' id="standard-basic" label="Amount of Work" className={classes.bottom} fullWidth autoFocus onChange={handleChange} />
         </DialogContent>
 
         <DialogActions className={classes.margin}>

@@ -11,6 +11,24 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
+const successAlert = () => MySwal.fire({
+  position: 'top-center',
+  icon: 'success',
+  title: 'Person`s task has been assigned',
+  showConfirmButton: false,
+  timer: 2000
+})
+
+const errorAlert = (pError) => MySwal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: `Something went wrong! ${pError}` ,
+  footer: '<a href="">Why do I have this issue?</a>'
+});
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -31,18 +49,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-// function createData(name, lastname) {
-//   return { name, lastname };
-// }
-
-// const rows = [
-//   createData('Hans', 'Peter'),
-//   createData('Thomas', 'Mayer'),
-//   createData('Brus', 'Lee'),
-//   createData('Barni', 'Moloztas'),
-//   createData('Fred', 'Cakmaktas'),
-// ];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -59,7 +65,7 @@ const CreateCleaningList = () => {
     const [statePersonList, setStatePersonList] = personList;
     const [stateTaskList, setStateTaskList] = taskList;
   
-    const [personId, setPersonId] = useState();
+    // const [personId, setPersonId] = useState();
     const [taskId, setTaskId] = useState();
     const [taskDate, setTaskDate] = useState({});
 
@@ -67,24 +73,25 @@ const CreateCleaningList = () => {
 
       const person=event.target.closest("tr").firstChild;
       const selectedPersonId=person.dataset.personid;
-        setPersonId(selectedPersonId)
+        // setPersonId(selectedPersonId)
 
       const tableData={
       "personId":+selectedPersonId,
       "taskId":+taskId,
       "date":Date(taskDate),
-      "asistanId":6,
+      "asistanId":7,
       "status":0
       }
       console.log(tableData)
       
-        fetch('http://localhost:3000/creatTaskList/', {
+        fetch('http://localhost:3000/creatTaskList/', 
+        {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(tableData)
-        })          
-          .catch(error => console.log(error));
-
+        }) 
+          .then(() => successAlert())         
+          .catch(error => errorAlert(error));
     }   
   
     return ( 
