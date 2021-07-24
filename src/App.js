@@ -56,18 +56,19 @@ const App = () => {
                 <Route exact path="/">
                   <Paper className={classes.paper}><ActuelCleaningTable /></Paper>
                 </Route>
+
                 <Route path="/persons">
                   <Paper className={classes.paper}><PersonListContainer /></Paper>
                 </Route>
-                <Route path="/confirmList">
-                  <Paper className={classes.paper}><ConfirmList /></Paper>
-                </Route>
+                
                 <Route path="/createCleaningList">
                   <Paper className={classes.paper}><CreateCleaningList /></Paper>
                 </Route>
+
                 <Route path="/tasks">
                   <Paper className={classes.paper}><TaskListContainer /></Paper>
                 </Route>
+                
                 <Route path="/asistants">
                   <Paper className={classes.paper}><AsistantListContainer /></Paper>
                 </Route>

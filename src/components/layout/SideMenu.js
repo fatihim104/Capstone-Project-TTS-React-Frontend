@@ -47,20 +47,7 @@ const SideMenü = () => {
                     </ListItem>   
                 </List>
             </Link>
-
-                <Divider/>
-            
-            <Link to="/confirmList">
-                <List component="nav" aria-label="list comfirm/edit">
-                    <ListItem button selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event,1)}>
-                        <ListItemIcon>
-                            <PlaylistAddCheckRoundedIcon color="secondary" fontSize="large" />
-                        </ListItemIcon>
-                        <ListItemText primary="Actuel Cleaning List/Confirm" />
-                    </ListItem>   
-                </List>
-            </Link>
-                
+               
                 <Divider/>
 
             <Link to="/createCleaningList">
