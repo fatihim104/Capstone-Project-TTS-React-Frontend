@@ -10,7 +10,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppBarMenü from './components/layout/AppBarMenu';
 import SideMenü from './components/layout/SideMenu';
 import ActuelCleaningTable from './components/actuel-cleaning-table/ActuelCleaningTable';
-import ConfirmList from './components/shared/ConfirmList';
 import CreateCleaningList from './components/cleaning-list/CreateCleaningList';
 import TaskListContainer from './components/task/TaskListContainer';
 import PersonListContainer from './components/person/PersonListContainer';
