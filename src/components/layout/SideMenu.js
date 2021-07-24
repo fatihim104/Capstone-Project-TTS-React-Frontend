@@ -8,7 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom';
 
 //Icons
-import PlaylistAddCheckRoundedIcon from '@material-ui/icons/PlaylistAddCheckRounded';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined'
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import PersonAddTwoToneIcon from '@material-ui/icons/PersonAddTwoTone';
