@@ -17,15 +17,14 @@ const StyledTableCell = withStyles((theme) => ({
 const PersonTableList = ({ pId }) => {
     const [PersonList, setPersonList] = useState([]);
 
-    function readPersonListFromBackend(pId) {
-        fetch(`http://localhost:3000/persons/${pId}`)
+    function readPersonByIdFromBackend(personId) {
+        fetch(`http://localhost:3000/persons/${personId}`)
             .then(response => response.json())
             .then(data => setPersonList(data));
     }
-
     useEffect(() => {
-        readPersonListFromBackend(pId);
-    });
+        readPersonByIdFromBackend(pId);
+    }, []);
 
     return (
         <>

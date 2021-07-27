@@ -17,15 +17,15 @@ const StyledTableCell = withStyles((theme) => ({
 const TaskTableList = ({ pId }) => {
     const [TaskList, setTaskList] = useState([]);
 
-    function readTaskListFromBackend(pId) {
-        fetch(`http://localhost:3000/tasks/${pId}`)
+    function readTaskByIdFromBackend(taskId) {
+        fetch(`http://localhost:3000/tasks/${taskId}`)
             .then(response => response.json())
             .then(data => setTaskList(data));
     }
-
     useEffect(() => {
-        readTaskListFromBackend(pId);
-    });
+        readTaskByIdFromBackend(pId);
+    }, []);
+
 
     return (
         <>
