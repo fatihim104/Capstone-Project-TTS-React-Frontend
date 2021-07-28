@@ -40,7 +40,7 @@ const SideMenü = () => {
                 <List component="nav" aria-label="actuel cleaning list">
                     <ListItem button selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event,0)}>
                         <ListItemIcon>
-                            <ListAltOutlinedIcon color="secondary" fontSize="large" />  
+                            <ListAltOutlinedIcon color="primary" fontSize="large" />  
                         </ListItemIcon>
                         <ListItemText primary="Actuel Cleaning List" />
                     </ListItem>   
