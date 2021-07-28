@@ -31,17 +31,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-// function createData(name, time) {
-//   return { name, time };
-// }
-
-// const rows = [
-//   createData('Kitchen', 12.00),
-//   createData('Eating Room', 13.00),
-//   createData('Stairs', 9.00),
-//   createData('Toilets', 18.00)
-// ];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
