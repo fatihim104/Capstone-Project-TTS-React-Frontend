@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
+import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import PersonTableList from './PersonTableList.js'
 import TaskTableList from './TaskTableList.js'
 import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
@@ -26,47 +19,21 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
-    root: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-    },
-}))(TableRow);
 
-const useStyles = makeStyles({
-    table: {
-        width: '95%',
-        textAlign: 'center',
-    },
-    badge: {
-        fontWeight: 'bold',
-    }
 
-});
+const PersonTableListPersonLogin = ({ pId, row }) => {
 
-const PersonTableListPersonLogin = ({ pId }) => {
-    const classes = useStyles();
-    const [ActuelCleaningList, setActuelCleaningList] = useState([]);
     const actuelCleanigListUrl = 'http://localhost:3000/creatTaskList'
     const statusPersonSucces = 1;
     const { user } = useAuth0();
     const [PersonList, setPersonList] = useState([]);
-
     function readPersonByIdFromBackend(personId) {
         fetch(`http://localhost:3000/persons/${personId}`)
             .then(response => response.json())
             .then(data => setPersonList(data));
     }
 
-
-    function readPersonIdAndTaskIdFromBackend() {
-        fetch(actuelCleanigListUrl)
-            .then(response => response.json())
-            .then(data => setActuelCleaningList(data));
-    }
     useEffect(() => {
-        readPersonIdAndTaskIdFromBackend()
         readPersonByIdFromBackend(pId);
     }, []);
 
@@ -75,6 +42,7 @@ const PersonTableListPersonLogin = ({ pId }) => {
             'status': pSuccesKod,
         }
         creatTaskListUpdate(pId, succesData)
+        window.location.reload()
     }
 
     function creatTaskListUpdate(pId, pFormData) {
@@ -83,9 +51,9 @@ const PersonTableListPersonLogin = ({ pId }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(pFormData)
         })
-            .then(() => readPersonIdAndTaskIdFromBackend())
             .catch(error => console.log(error));
     }
+
     function convertStatusCode(pStatus) {
 
         if (pStatus === 0) {
@@ -96,35 +64,35 @@ const PersonTableListPersonLogin = ({ pId }) => {
             return (<Badge className="badge-confirmed" badgeContent='Confirmed' />)
         }
     }
-    return (
-        <TableContainer component={Paper} className={classes.table}>
-            <Table aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell align="center">LastName</StyledTableCell>
-                        <StyledTableCell align="center">Place</StyledTableCell>
-                        <StyledTableCell align="center">Status</StyledTableCell>
-                        <StyledTableCell align="center">Time</StyledTableCell>
-                        <StyledTableCell align="center"></StyledTableCell>
-                        <StyledTableCell align="center"></StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {ActuelCleaningList.map((row) => (
-                        < StyledTableRow key={row.id} >
-                            <PersonTableList pId={row.personId} />
-                            <TaskTableList pId={row.taskId} />
-                            <StyledTableCell align="center" >{convertStatusCode(row.status)}</StyledTableCell>
-                            <StyledTableCell align="center">{row.date}</StyledTableCell>
-                            <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusPersonSucces)} variant="contained" color="primary" >P.Succes</Button></StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer >
-    );
 
+    if (user === undefined) {
+        return (
+            <HomePage />
+        )
+    } else {
+        if (user.email === PersonList.email) {
+            return (
+                <>
+                    <StyledTableCell component="th" scope="row">{PersonList.firstName}</StyledTableCell>
+                    <StyledTableCell align="center">{PersonList.lastName}</StyledTableCell>
+                    <TaskTableList pId={row.taskId} />
+                    <StyledTableCell align="center" >{convertStatusCode(row.status)}</StyledTableCell>
+                    <StyledTableCell align="center">{row.date}</StyledTableCell>
+                    <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusPersonSucces)} variant="contained" color="primary" >Done</Button></StyledTableCell>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <StyledTableCell component="th" scope="row">{PersonList.firstName}</StyledTableCell>
+                    <StyledTableCell align="center">{PersonList.lastName}</StyledTableCell>
+                    <TaskTableList pId={row.taskId} />
+                    <StyledTableCell align="center" >{convertStatusCode(row.status)}</StyledTableCell>
+                    <StyledTableCell align="center">{row.date}</StyledTableCell>
+                </>
+            )
+        }
+    }
 }
 
 export default PersonTableListPersonLogin;

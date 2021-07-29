@@ -118,12 +118,30 @@ const ActuelCleaningTable = () => {
   } else {
     if (personEmail.includes(user.email) === true) {
       return (
-        <>
-          {ActuelCleaningList.map((row) => (
-            <PersonTableListPersonLogin pId={row.personId} />
-          ))
-          }
-        </>
+
+        <TableContainer component={Paper} className={classes.table}>
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell align="center">LastName</StyledTableCell>
+                <StyledTableCell align="center">Place</StyledTableCell>
+                <StyledTableCell align="center">Status</StyledTableCell>
+                <StyledTableCell align="center">Time</StyledTableCell>
+                <StyledTableCell align="center"></StyledTableCell>
+                <StyledTableCell align="center"></StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {ActuelCleaningList.map((row) => (
+                < StyledTableRow key={row.id} >
+                  <PersonTableListPersonLogin pId={row.personId} row={row} /></StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer >
+
+
       )
     } else if (asistantEmail.includes(user.email) === true) {
       return (
