@@ -12,8 +12,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-
-
 const PersonTableList = ({ pId }) => {
     const [PersonList, setPersonList] = useState([]);
 

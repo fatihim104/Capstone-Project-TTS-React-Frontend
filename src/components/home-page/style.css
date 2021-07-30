@@ -7,7 +7,7 @@
 section {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
-    background: radial-gradient(circle, rgb(105, 252, 61) 0%, rgb(33, 74, 255) 85%);
+    background: radial-gradient(circle, rgba(106, 114, 228, 0.658) 0%, rgba(45, 96, 236, 0.733) 85%);
     display: flex;
     flex-direction: column;
     align-items: center;

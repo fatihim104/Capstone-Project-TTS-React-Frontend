@@ -140,8 +140,6 @@ const ActuelCleaningTable = () => {
             </TableBody>
           </Table>
         </TableContainer >
-
-
       )
     } else if (asistantEmail.includes(user.email) === true) {
       return (
@@ -177,8 +175,6 @@ const ActuelCleaningTable = () => {
         <div></div>
       )
     }
-
-
   }
 }
 

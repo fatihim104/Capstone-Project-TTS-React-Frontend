@@ -19,8 +19,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-
-
 const PersonTableListPersonLogin = ({ pId, row }) => {
 
     const actuelCleanigListUrl = 'http://localhost:3000/creatTaskList'

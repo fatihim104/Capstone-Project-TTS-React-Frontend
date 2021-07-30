@@ -12,8 +12,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-
-
 const TaskTableList = ({ pId }) => {
     const [TaskList, setTaskList] = useState([]);
 
@@ -25,7 +23,6 @@ const TaskTableList = ({ pId }) => {
     useEffect(() => {
         readTaskByIdFromBackend(pId);
     }, []);
-
 
     return (
         <>
