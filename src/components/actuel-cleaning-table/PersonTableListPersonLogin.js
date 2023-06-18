@@ -19,20 +19,23 @@ const StyledTableCell = withStyles((theme) => ({
     },
 }))(TableCell);
 
-const PersonTableListPersonLogin = ({ pId, row }) => {
+const PersonTableListPersonLogin = ({ personIdOfTask, assignedTask }) => {
 
     const actuelCleanigListUrl = 'http://localhost:3000/creatTaskList'
     const statusPersonSucces = 1;
     const { user } = useAuth0();
-    const [PersonList, setPersonList] = useState([]);
+    const [Person, setPerson] = useState({});
+    const [disabled, setDisabled] = useState(false)
     function readPersonByIdFromBackend(personId) {
         fetch(`http://localhost:3000/persons/${personId}`)
             .then(response => response.json())
-            .then(data => setPersonList(data));
+            .then(data => setPerson(data));
     }
 
     useEffect(() => {
-        readPersonByIdFromBackend(pId);
+        readPersonByIdFromBackend(personIdOfTask);
+        creatTaskListUpdate()
+       
     }, []);
 
     function StatusUpdatePerson(pId, pSuccesKod) {
@@ -68,25 +71,26 @@ const PersonTableListPersonLogin = ({ pId, row }) => {
             <HomePage />
         )
     } else {
-        if (user.email === PersonList.email) {
+        if (user.email === Person.email) {
             return (
                 <>
-                    <StyledTableCell component="th" scope="row">{PersonList.firstName}</StyledTableCell>
-                    <StyledTableCell align="center">{PersonList.lastName}</StyledTableCell>
-                    <TaskTableList pId={row.taskId} />
-                    <StyledTableCell align="center" >{convertStatusCode(row.status)}</StyledTableCell>
-                    <StyledTableCell align="center">{row.date}</StyledTableCell>
-                    <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusPersonSucces)} variant="contained" color="primary" >Done</Button></StyledTableCell>
+                    <StyledTableCell component="th" scope="assignedTask">{Person.firstName}</StyledTableCell>
+                    <StyledTableCell align="center">{Person.lastName}</StyledTableCell>
+                    <TaskTableList pId={assignedTask.taskId} />
+                    <StyledTableCell align="center" >{convertStatusCode(assignedTask.status)}</StyledTableCell>
+                    <StyledTableCell align="center">{assignedTask.date}</StyledTableCell>
+                    <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(assignedTask.id, statusPersonSucces)} disabled={assignedTask.status === 1} variant="contained" color="primary" >Done</Button></StyledTableCell>
                 </>
             )
         } else {
             return (
                 <>
-                    <StyledTableCell component="th" scope="row">{PersonList.firstName}</StyledTableCell>
-                    <StyledTableCell align="center">{PersonList.lastName}</StyledTableCell>
-                    <TaskTableList pId={row.taskId} />
-                    <StyledTableCell align="center" >{convertStatusCode(row.status)}</StyledTableCell>
-                    <StyledTableCell align="center">{row.date}</StyledTableCell>
+                    <StyledTableCell component="th" scope="row">{Person.firstName}</StyledTableCell>
+                    <StyledTableCell align="center">{Person.lastName}</StyledTableCell>
+                    <TaskTableList pId={assignedTask.taskId} />
+                    <StyledTableCell align="center" >{convertStatusCode(assignedTask.status)}</StyledTableCell>
+                    <StyledTableCell align="center">{assignedTask.date}</StyledTableCell>
+                    <StyledTableCell align="right"><Button disabled variant="contained" color="primary" >Done</Button></StyledTableCell>
                 </>
             )
         }

@@ -13,20 +13,20 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const TaskTableList = ({ pId }) => {
-    const [TaskList, setTaskList] = useState([]);
+    const [task, setTask] = useState({});
 
-    function readTaskByIdFromBackend(taskId) {
-        fetch(`http://localhost:3000/tasks/${taskId}`)
+    function readTaskByIdFromBackend(pId) {
+        fetch(`http://localhost:3000/tasks/${pId}`)
             .then(response => response.json())
-            .then(data => setTaskList(data));
+            .then(data => setTask(data));
     }
     useEffect(() => {
         readTaskByIdFromBackend(pId);
-    }, []);
+    }, [pId]);
 
     return (
         <>
-            <StyledTableCell component="th" scope="row">{TaskList.place_name}</StyledTableCell>
+            <StyledTableCell component="th" scope="row">{task.place_name}</StyledTableCell>
         </>
     )
 }

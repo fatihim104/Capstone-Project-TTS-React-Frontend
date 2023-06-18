@@ -63,7 +63,7 @@ const useStyles = makeStyles({
 
 const HomePage = () => {
     const classes = useStyles();
-    const { loginWithRedirect, isAuthenticated } = useAuth0();
+    const { loginWithRedirect } = useAuth0();
     
     return(
         <Router>

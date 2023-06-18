@@ -22,7 +22,7 @@ const PersonTableList = ({ pId }) => {
     }
     useEffect(() => {
         readPersonByIdFromBackend(pId);
-    }, []);
+    }, [pId]);
 
     return (
         <>

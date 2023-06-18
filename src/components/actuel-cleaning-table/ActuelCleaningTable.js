@@ -92,7 +92,7 @@ const ActuelCleaningTable = () => {
   }, []);
 
   personList.map(person => (personEmail.push(person.email)));
-  asistantList.map(person => (asistantEmail.push(person.email)));
+  asistantList.map(asistan => (asistantEmail.push(asistan.email)));
 
   function StatusUpdatePerson(pId, pSuccesKod) {
     let succesData = {
@@ -100,9 +100,8 @@ const ActuelCleaningTable = () => {
     }
     creatTaskListUpdate(pId, succesData)
   }
-
+  
   function convertStatusCode(pStatus) {
-
     if (pStatus === 0) {
       return (<Badge color='secondary' badgeContent='Pending' />);
     } else if (pStatus === 1) {
@@ -111,6 +110,7 @@ const ActuelCleaningTable = () => {
       return (<Badge className="badge-confirmed" badgeContent='Confirmed' />)
     }
   }
+
   if (user === undefined) {
     return (
       <HomePage />
@@ -133,9 +133,9 @@ const ActuelCleaningTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {ActuelCleaningList.map((row) => (
-                < StyledTableRow key={row.id} >
-                  <PersonTableListPersonLogin pId={row.personId} row={row} /></StyledTableRow>
+              {ActuelCleaningList.map((assignedTask) => (
+                < StyledTableRow key={assignedTask.id} >
+                  <PersonTableListPersonLogin personIdOfTask={assignedTask.personId} assignedTask={assignedTask} /></StyledTableRow>
               ))}
             </TableBody>
           </Table>
@@ -157,13 +157,13 @@ const ActuelCleaningTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {ActuelCleaningList.map((row) => (
-                < StyledTableRow key={row.id} >
-                  <PersonTableList pId={row.personId} />
-                  <TaskTableList pId={row.taskId} />
-                  <StyledTableCell align="center" >{convertStatusCode(row.status)}</StyledTableCell>
-                  <StyledTableCell align="center">{row.date}</StyledTableCell>
-                  <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(row.id, statusAsisstentSucces)} variant="contained" color="primary">Done</Button></StyledTableCell>
+              {ActuelCleaningList.map((assignedTask) => (
+                <StyledTableRow key={assignedTask.id} >
+                  <PersonTableList pId={assignedTask.personId} /> 
+                  <TaskTableList pId={assignedTask.taskId} />
+                  <StyledTableCell align="center" >{convertStatusCode(assignedTask.status)}</StyledTableCell>
+                  <StyledTableCell align="center">{assignedTask.date}</StyledTableCell>
+                  <StyledTableCell align="right"><Button onClick={() => StatusUpdatePerson(assignedTask.id, statusAsisstentSucces)} disabled={assignedTask.status === 2} variant="contained" color="primary"> {assignedTask.status ===1 ? "Confirm" : "Confirmed" }</Button></StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -172,7 +172,7 @@ const ActuelCleaningTable = () => {
       );
     } else {
       return (
-        <div></div>
+        <div>No Task</div>
       )
     }
   }
